@@ -88,5 +88,14 @@ export const actionLoginRequest = ({email, password, history }) => async dispatc
   
 export const actionLogOut = ({ history }) => dispatch => {
     dispatch({ type: LOGIN_RESET })
+    const user = JSON.parse(localStorage.getItem("user"));
+    
+    if (user) {
+        axios({
+            method: 'POST',
+            url: `${api_url}/Users/logout?access_token=${user.token}`
+        })
+    }
+    
     localStorage.removeItem("user")
 }
